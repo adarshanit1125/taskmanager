@@ -12,7 +12,7 @@ export default function Signup() {
 
         try {
             setLoading(true);
-            await axios.post("http://localhost:5000/api/auth/signup", data);
+            await axios.post("https://taskmanager-057j.onrender.com/api/auth/signup", data);
             alert("Signup successful");
             window.location = "/";
         } catch (err) {

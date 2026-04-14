@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+const API = "https://taskmanager-057j.onrender.com";
+
 export default function Dashboard() {
     const [tasks, setTasks] = useState([]);
     const [title, setTitle] = useState("");
@@ -10,7 +12,7 @@ export default function Dashboard() {
 
     const getTasks = async () => {
         try {
-            const res = await axios.get("http://localhost:5000/api/tasks", {
+            const res = await axios.get(`${API}/api/tasks`, {
                 headers: { Authorization: token }
             });
             setTasks(res.data);
@@ -24,11 +26,13 @@ export default function Dashboard() {
 
         try {
             setLoading(true);
+
             await axios.post(
-                "http://localhost:5000/api/tasks",
+                `${API}/api/tasks`,
                 { title },
                 { headers: { Authorization: token } }
             );
+
             setTitle("");
             getTasks();
         } catch {
@@ -40,7 +44,7 @@ export default function Dashboard() {
 
     const deleteTask = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/api/tasks/${id}`, {
+            await axios.delete(`${API}/api/tasks/${id}`, {
                 headers: { Authorization: token }
             });
             getTasks();
@@ -61,7 +65,6 @@ export default function Dashboard() {
     return (
         <div className="min-h-screen bg-gray-100 p-6">
 
-            {/* Top Bar */}
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-bold">Task Manager</h1>
                 <button
@@ -72,7 +75,6 @@ export default function Dashboard() {
                 </button>
             </div>
 
-            {/* Add Task */}
             <div className="flex gap-2 mb-6">
                 <input
                     className="border p-2 flex-1 rounded"
@@ -88,7 +90,6 @@ export default function Dashboard() {
                 </button>
             </div>
 
-            {/* Task List */}
             <div className="space-y-2">
                 {tasks.length === 0 ? (
                     <p className="text-gray-500">No tasks yet</p>

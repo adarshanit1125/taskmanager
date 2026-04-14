@@ -14,7 +14,7 @@ export default function Login() {
             setLoading(true);
 
             const res = await axios.post(
-                "http://localhost:5000/api/auth/login",
+                "https://taskmanager-057j.onrender.com/api/auth/login",
                 data
             );
 
